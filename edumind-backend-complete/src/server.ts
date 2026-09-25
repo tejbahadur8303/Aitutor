@@ -25,12 +25,13 @@ const app = express();
    CORS CONFIGURATION
    ========================================================= */
 
+// Fixed local development origins
 const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
 ];
 
-// Also allow origins from .env
+// Add any extra origins from .env
 const envOrigins = (process.env.CORS_ORIGIN || env.corsOrigin || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -45,12 +46,29 @@ console.log("Allowed CORS origins:", allAllowedOrigins);
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without Origin header
-      // such as Postman/server-to-server requests.
+      // Allow requests without an Origin header
+      // such as Postman or server-to-server requests.
       if (!origin) {
         return callback(null, true);
       }
 
+      // Allow localhost
+      if (
+        origin === "http://localhost:5173" ||
+        origin === "http://127.0.0.1:5173"
+      ) {
+        return callback(null, true);
+      }
+
+      // Allow all Vercel deployment URLs
+      // Example:
+      // https://aitutor-abc123.vercel.app
+      // https://aitutor-xyz456-projects.vercel.app
+      if (origin.endsWith(".vercel.app")) {
+        return callback(null, true);
+      }
+
+      // Allow origins explicitly specified in .env
       if (allAllowedOrigins.includes(origin)) {
         return callback(null, true);
       }
