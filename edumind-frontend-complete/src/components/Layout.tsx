@@ -3,9 +3,10 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   BookOpen, Brain, CalendarDays, ChevronLeft, ChevronRight, FileText,
   GraduationCap, LayoutDashboard, LogOut, Menu, MessageCircle, Moon,
-  Settings, Sparkles, Target, TrendingUp, User, X
+  Settings, Target, TrendingUp, User, X
 } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
+import LogoMark from "../components/LogoMark";
 
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -36,7 +37,7 @@ export default function Layout() {
     <div className={dark ? "app dark" : "app"}>
       <aside className={`sidebar ${collapsed ? "collapsed" : ""} ${mobile ? "mobile-open" : ""}`}>
         <div className="brand">
-          <div className="brand-mark"><Sparkles size={19}/></div>
+          <div className="brand-mark"><LogoMark size={19}/></div>
           {!collapsed && <div><strong>EduMind</strong><span>AI Learning</span></div>}
           <button className="icon-btn mobile-close" onClick={() => setMobile(false)}><X size={19}/></button>
         </div>

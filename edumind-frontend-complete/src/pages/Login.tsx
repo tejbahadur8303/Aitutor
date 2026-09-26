@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, LockKeyhole, Mail, Sparkles } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 
 import { api } from "../api/axios";
 import { useAuthStore } from "../store/authStore";
+import LogoMark from "../components/LogoMark";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ export default function Login() {
       <div className="auth-art">
         <div className="auth-brand">
           <div className="brand-mark">
-            <Sparkles size={19} />
+            <LogoMark size={19} />
           </div>
 
           <b>EduMind AI</b>
@@ -79,7 +80,7 @@ export default function Login() {
       <div className="auth-panel">
         <form className="auth-form" onSubmit={submit}>
           <div className="mobile-brand">
-            <Sparkles size={20} />
+            <LogoMark size={20} />
             <span>EduMind AI</span>
           </div>
 

@@ -26,10 +26,7 @@ const app = express();
    ========================================================= */
 
 // Fixed local development origins
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-];
+const allowedOrigins = ["http://localhost:5173", "http://127.0.0.1:5173"];
 
 // Add any extra origins from .env
 const envOrigins = (process.env.CORS_ORIGIN || env.corsOrigin || "")
@@ -37,9 +34,7 @@ const envOrigins = (process.env.CORS_ORIGIN || env.corsOrigin || "")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-const allAllowedOrigins = [
-  ...new Set([...allowedOrigins, ...envOrigins]),
-];
+const allAllowedOrigins = [...new Set([...allowedOrigins, ...envOrigins])];
 
 console.log("Allowed CORS origins:", allAllowedOrigins);
 
@@ -75,21 +70,12 @@ app.use(
 
       console.error("CORS blocked origin:", origin);
 
-      return callback(
-        new Error(`Origin ${origin} is not allowed by CORS`)
-      );
+      return callback(new Error(`Origin ${origin} is not allowed by CORS`));
     },
 
     credentials: true,
 
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "PATCH",
-      "DELETE",
-      "OPTIONS",
-    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 
     allowedHeaders: [
       "Origin",
@@ -98,7 +84,7 @@ app.use(
       "Accept",
       "Authorization",
     ],
-  })
+  }),
 );
 
 /* =========================================================
@@ -115,7 +101,7 @@ app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 300,
-  })
+  }),
 );
 
 /* =========================================================
@@ -170,9 +156,7 @@ async function start() {
     await connectDB();
 
     app.listen(env.port, () => {
-      console.log(
-        `EduMind AI backend running on http://localhost:${env.port}`
-      );
+      console.log(`EduMind AI backend running on http://localhost:${env.port}`);
     });
   } catch (error) {
     console.error("Startup failed:", error);
